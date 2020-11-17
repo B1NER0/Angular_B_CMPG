@@ -1,0 +1,65 @@
+.filler {
+    flex: 1 1 auto;
+ }
+ .gap {
+    margin-right: 20px;
+ }
+
+ .logo{
+    width: 25rem;
+    height: auto;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+ }
+
+ .uploadSection {
+     margin-top: 2rem;
+ }
+
+ .uploadSection h1 {
+     font-size: 2rem;
+     font-weight: bold;
+ }
+
+ .uploadBtn{    
+    width: 8rem;
+    height: 2.5rem;
+ }
+
+.fileInfo {
+    margin-top: 1.2rem;
+    font-size: large;
+    margin-bottom: 3rem;
+}
+
+#include {
+    padding-left: 1rem
+}
+
+.typePreview{
+     height: 4.3rem;
+     width: auto;
+ }
+
+ .tableHEAD{
+     font-size: 1.1rem;
+     font-weight: lighter;
+     text-align: center;
+ }
+
+ .top-toolbar {
+     color: white;
+     background-color: #4285F4;
+     padding-left: 5rem;
+     padding-right: 5rem;
+     font-size: 1.5rem;
+ }
+
+ .top-toolbar h1 {
+     font-size: 1.6rem;
+ }
+
+ .top-toolbar span {
+     padding-right: 2rem;
+ }

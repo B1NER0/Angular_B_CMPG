@@ -1,0 +1,56 @@
+
+<div class="header">
+    <img class="logo" src="assets\images\Web-Logo2.png"/>
+  </div>
+  
+  <mat-toolbar class="top-toolbar">
+    <h1>Data Dashboard</h1>
+    <span class = "filler"></span>
+    <span>Loggedin user</span>
+    <button class="btn btn-secondary">Logout</button>
+  </mat-toolbar>
+  
+  
+  <div class="container text-center uploadSection">
+    <h1> Select a File </h1>
+    <p class="supportTypes">Supported file types: .docx, .xlsx(xlms), .csv and .txt</p>
+  
+    <input style="display: none" type="file" (change)="onFileSelect($event)" #hiddenfileinput>
+  
+    <div class="fileStuff text-center">
+      <button (click)="hiddenfileinput.click()"  class="btn btn-primary uploadBtn text-center">File Upload</button>
+      <img class="typePreview" id="fileType"/>
+    </div>
+  
+  
+    <p class="fileInfo">{{theFilename}}</p>
+  
+  </div>
+  
+  
+  <div class="container">
+    <h2 class="text-center">Identified Data</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr class="bg-dark text-white font-weight-light tableHEAD">
+            <th scope="col">#</th>
+            <th scope="col">Identified Data</th>
+            <th scope="col">Category</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of ItemsArray" class="text-center">
+            <th>{{item.id}}</th>
+            <td>{{item.data}}</td>
+            <td>{{item.category}}</td>
+            <td class="custom-control custom-checkbox">
+              <input type="checkbox" checked>
+              <label id="include"> Include</label>
+            </td>
+          </tr>        
+        </tbody>
+      </table>
+    </div>
+  </div>
