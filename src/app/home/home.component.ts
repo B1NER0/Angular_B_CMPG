@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APIMasterService } from '../services/api-master.service';
+import { APIMasterService } from '../services/API/api-master.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -154,18 +154,20 @@ export class HomeComponent implements OnInit {
   classified: any;
 
   public analyzeData() {
-    
+    this.ItemsArray = [];
     try{
         this.apiReq.getAnalysedData().subscribe(result => {
         this.classified = result;
         console.log(result)//this.classified[0]['Person'][3]
         this.populateGrid(result);
         return true;
+        
         });
     }catch(err){
       console.log(err)
       return false;
     }
+
   }
 
 

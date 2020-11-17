@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './services/AuthGuard/auth.guard';
 import { NewUserComponent } from './new-user/new-user.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
