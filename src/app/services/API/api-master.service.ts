@@ -39,6 +39,11 @@ export class APIMasterService {
       this.rout.navigate(['']);
   })  
   }
+
+  sendIdentifiedData(iData, userID): Observable<any>{
+    return this.http.post<any>(this.apiUrl + '/sendData', {data: iData, uID: userID})
+    
+  }
   
 
   theData:any = [];
@@ -66,7 +71,7 @@ export class APIMasterService {
 
   createUser(tusername, temail, tpassword): Observable<any>{
 
-    return this.http.post(this.apiUrl + '/newUser', {username: tusername, email: temail,password: tpassword}, {observe: 'response', responseType: 'text'})
+    return this.http.post(this.apiUrl + '/newUser', {username: tusername, email: temail, password: tpassword}, {observe: 'response', responseType: 'text'})
   }
 
 

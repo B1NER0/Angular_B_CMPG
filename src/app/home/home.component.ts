@@ -15,6 +15,71 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     var theUser = localStorage.getItem('username');
     document.getElementById('theUser').innerHTML = theUser;
+    this.isLoad = false;
+  }
+
+  
+  catValues = [
+    "Person",
+    "Email",
+    "Phone",
+    "ID Number",
+    "Location",
+    "Banking",
+    "Religion",
+    "Other (specify)"
+  ]
+
+  onOptionSelected(value:string){
+    var el = <HTMLInputElement> document.getElementById('otherData');
+    el.value = '';
+    if(value == 'Other (specify)'){      
+      el.disabled = false;
+    }
+    else{
+      el.disabled = true;
+    }
+    
+  }
+ 
+  isShown :boolean;
+  manAddData(){
+
+    var theVal = (<HTMLInputElement>document.getElementById('manData')).value;
+    var otherData = (<HTMLInputElement>document.getElementById('otherData')).value
+    var theCat = (<HTMLInputElement>document.getElementById('sel1')).value;
+
+
+    if(theCat === 'Other (specify)'){
+      if(otherData === ''){
+        this.isShown = true;
+        return;
+      }
+      else{
+        this.isShown = false;
+      }
+        
+      theCat = otherData;
+    }
+
+    if(theVal === ''){
+      this.isShown = true;
+    }else{
+      this.isShown = false;
+      
+      var thisCount = this.toPop.length + 1;
+
+      this.toPop.push({
+        id: thisCount,
+        data: theVal,
+        category: theCat,
+        status: 'YES'
+      })    
+  
+      this.ItemsArray = this.toPop;
+    }
+
+    
   }
 
   logOut(){
@@ -70,9 +135,44 @@ export class HomeComponent implements OnInit {
     this.apiReq.checkIfAuth('newUser');
   }
 
-  ItemsArray= [[
-    {},]   
-  ];
+  
+
+  submitData() {
+
+    this.manAddData()
+   
+   /* var test = <HTMLTableElement>(document.querySelector('#theTable'));
+
+    var bla = test.tBodies[0].rows;
+
+    var arr = [];
+
+    Array.from(bla).forEach((row, idx) => {
+      const tds = Array.from(row.cells).map(td => td.textContent);     
+      arr.push(tds);
+    })
+    
+    this.startSorting(arr);*/
+  }
+
+  startSorting(theArr){
+      console.log(theArr)
+
+      theArr.forEach(element => {
+        if(element[3] === 'YES'){
+          if(!this.itemsToSend.includes(element[2])){
+            this.itemsToSend.push(element[2]);
+          }          
+        }
+      });
+
+      this.apiReq.sendIdentifiedData(this.itemsToSend, '30303052').subscribe(res => {
+        console.log(res)
+      })
+  }
+
+  ItemsArray= [];
+  itemsToSend = [];
 
   toPop = [];
   public populateGrid(result){
@@ -90,7 +190,8 @@ export class HomeComponent implements OnInit {
       this.toPop.push({
         id: counter,
         data: element,
-        category: 'Person'
+        category: 'Person',
+        status: 'YES'
       })
     });
 
@@ -102,7 +203,8 @@ export class HomeComponent implements OnInit {
       this.toPop.push({
         id: counter,
         data: element,
-        category: 'ID Number'
+        category: 'ID Number',
+        status: 'YES'
       })
     });
 
@@ -114,7 +216,8 @@ export class HomeComponent implements OnInit {
       this.toPop.push({
         id: counter,
         data: element,
-        category: 'Phone'
+        category: 'Phone',
+        status: 'YES'
       })
     });
 
@@ -126,7 +229,8 @@ export class HomeComponent implements OnInit {
       this.toPop.push({
         id: counter,
         data: element,
-        category: 'Email'
+        category: 'Email',
+        status: 'YES'
       })
     });
 
@@ -138,7 +242,8 @@ export class HomeComponent implements OnInit {
       this.toPop.push({
         id: counter,
         data: element,
-        category: 'Religion'
+        category: 'Religion',
+        status: 'YES'
       })
     });
 
@@ -150,7 +255,8 @@ export class HomeComponent implements OnInit {
       this.toPop.push({
         id: counter,
         data: element,
-        category: 'Location/Address'
+        category: 'Location/Address',
+        status: 'YES'
       })
     });
 
@@ -162,12 +268,14 @@ export class HomeComponent implements OnInit {
       this.toPop.push({
         id: counter,
         data: element,
-        category: 'Banking'
+        category: 'Banking',
+        status: 'YES'
       })
     });
     
     this.ItemsArray = this.toPop;
-    console.log(this.toPop)
+    this.isLoad = false;
+    //console.log(this.toPop)
 
   }
 
@@ -177,12 +285,15 @@ export class HomeComponent implements OnInit {
 
   }
 
+  isLoad: boolean = false;
+
   public analyzeData() {
+    this.isLoad = true;
     this.ItemsArray = [];
     try{
         this.apiReq.getAnalysedData().subscribe(result => {
         this.classified = result;
-        console.log(result)//this.classified[0]['Person'][3]
+        //console.log(result)//this.classified[0]['Person'][3]
         this.populateGrid(result);
         return true;
         

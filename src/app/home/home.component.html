@@ -1,4 +1,5 @@
 
+
 <div class="header">
     <img class="logo" src="assets\images\Web-Logo2.png"/>
   </div>
@@ -25,14 +26,45 @@
   
   
     <p class="fileInfo">{{theFilename}}</p>
+
+    <div class="mb-3" id="leader" *ngIf="isLoad" role="alert">
+      <img src="assets\images\loadIc.gif"/>
+    </div>
   
   </div>
   
   
   <div class="container">
+
+    <div class="manContainer">
+
+    <div class="manData ">
+      <label >Data value<input type="text" class="form-control mt-2" id="manData" placeholder="Data"></label>
+      
+      
+      <div class="catDiv">
+        <label for="sel1">Category<select #mySelect class="form-control mt-2 manCat" id="sel1" (change)='onOptionSelected(mySelect.value)'>
+          <option class='option' *ngFor='let option of catValues' [value]="option">{{option}}</option>
+        </select></label>
+    </div>
+     
+    </div>
+    
+    <input type="text" class="form-control mt-2 otherT" disabled id="otherData" placeholder="other...">
+
+    <button class="btn btn-light mt-2" (click)="submitData()">Add to list</button>
+    <div class="alert alert-danger mt-4" id="credEr" *ngIf="isShown" role="alert">
+      Please fill in all the fields    
+  </div>
+    
+  </div>
+    
+  <div class="tableConHead mt-5">
+    <button class="btn btn-primary thisBut" (click)="submitData()">Submit Data</button>
     <h2 class="text-center">Identified Data</h2>
+  </div>
     <div class="table-responsive">
-      <table class="table table-bordered table-hover table-striped">
+      <table class="table table-bordered table-hover table-striped" id="theTable">
         <thead>
           <tr class="bg-dark text-white font-weight-light tableHEAD">
             <th scope="col">#</th>
@@ -46,12 +78,16 @@
             <th>{{item.id}}</th>
             <td>{{item.data}}</td>
             <td>{{item.category}}</td>
-            <td class="custom-control custom-checkbox">
-              <input type="checkbox" checked>
-              <label id="include"> Include</label>
+            <td class="custom-control custom-checkbox" >      
+              <label><input type="checkbox" id="chkInclude" val="sdsdf"></label>
+              <div class="sYes" id="dvYes">YES</div>
             </td>
           </tr>        
         </tbody>
       </table>
     </div>
+    
   </div>
+
+  
+   
