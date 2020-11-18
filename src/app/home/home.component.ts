@@ -13,9 +13,16 @@ export class HomeComponent implements OnInit {
   constructor(private apiReq: APIMasterService, private router: Router) { }
 
   ngOnInit(): void {
+    var theUser = localStorage.getItem('username');
+    document.getElementById('theUser').innerHTML = theUser;
   }
 
-  
+  logOut(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+
+    this.router.navigate(['']);
+  }  
 
   private selectedFile: File;
   theFilename = "" ;
@@ -28,39 +35,52 @@ export class HomeComponent implements OnInit {
     var extSource = '';
     var mes = 'Filename: ' + this.selectedFile.name;
 
+    var flag = false;
+
     if(ext === 'txt'){
       extSource = 'assets\\images\\txtIcon.png';
+      flag = true;
     }else if(ext === 'docx') {
       extSource = 'assets\\images\\docxIcon.png';
+      flag = true;
     }else if(ext === 'csv') {
       extSource = 'assets\\images\\csvIcon.png';
+      flag = true;
     }else if(ext === 'xlsm') {
       extSource = 'assets\\images\\xlsxIcon.png';
+      flag = true;
     }else{
       extSource = 'assets\\images\\errorIcon.png'
       mes = 'Error: Unsupported file type'
+      flag = false;
     }
 
     const fileImage = document.getElementById('fileType') as HTMLImageElement;
     fileImage.src = extSource;
     this.theFilename = mes;
-    
-    //upload file
-    this.analyzeData();
 
-
+    if(flag){     
+      //upload file
+      this.apiReq.uploadFile(event.target.files[0]);
+      this.analyzeData();
+    }
   }
 
-  ItemsArray= [
-    {id: "1", name: "test", email: "asdasd"},
-    {id: "3", name: "test1", email: "asdasgggh"},
-    {id: "2", name: "test2", email: "asdsdfff"}    
+  goToNewUser(){
+    this.apiReq.checkIfAuth('newUser');
+  }
+
+  ItemsArray= [[
+    {},]   
   ];
 
   toPop = [];
   public populateGrid(result){
 
     var counter = 0;
+    this.ItemsArray= [[
+      {},]   
+    ];
 
     let r = result.map(a => a.Person);
 
@@ -152,6 +172,10 @@ export class HomeComponent implements OnInit {
   }
 
   classified: any;
+
+  public startUpload(){
+
+  }
 
   public analyzeData() {
     this.ItemsArray = [];

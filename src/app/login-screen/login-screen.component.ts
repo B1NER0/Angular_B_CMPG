@@ -23,24 +23,20 @@ export class LoginScreenComponent implements OnInit {
 
     this.apiReq.checkIfAuth('home');
   }
-
-  log(){
-   
-    
   
-  }
 
   isShown: boolean = false;
 
   login(){
     var email = (<HTMLInputElement>document.getElementById('inputEmail')).value;
     var password = (<HTMLInputElement>document.getElementById('inputPassword')).value;
-    var errCred = <HTMLInputElement>document.getElementById('credEr');
+    
     
     this.isShown = false;
     this.apiReq.login(email, password).subscribe(res => {   
         let d: any = res;
         localStorage.setItem('token', d.token)
+        localStorage.setItem('username', d.username)
         this.apiReq.checkIfAuth('home');
   },
   () => {

@@ -6,8 +6,9 @@
   <mat-toolbar class="top-toolbar">
     <h1>Data Dashboard</h1>
     <span class = "filler"></span>
-    <span>Loggedin user</span>
-    <button class="btn btn-secondary">Logout</button>
+    <label id="theUser">user</label>    
+    <button class="btn btn-success" (click)="goToNewUser()">Create user</button>
+    <button class="btn btn-secondary ml-3" (click)="logOut()">Logout</button>
   </mat-toolbar>
   
   

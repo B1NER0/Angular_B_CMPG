@@ -61,11 +61,30 @@ export class APIMasterService {
     });
 
     return this.http.get<any>(this.apiUrl+'/auth', {headers: this.header, observe: 'response'});
-
-   // this.ref.tick();
-    //console.log(t);
+   
   }
 
+  createUser(tusername, temail, tpassword): Observable<any>{
+
+    return this.http.post(this.apiUrl + '/newUser', {username: tusername, email: temail,password: tpassword}, {observe: 'response', responseType: 'text'})
+  }
+
+
+  //upload file
+
+  fileToUpload : any;
+
+  uploadFile(files: FileList){
+    this.fileToUpload = files;
+    let fileData = new FormData();
+
+    fileData.append(`file`, this.fileToUpload, this.fileToUpload.name);
+
+    this.http.post<any>(this.apiUrl + '/upload', fileData).subscribe((val) => {
+      console.log(val);
+    });
+    return false;
+  }
   
   
 }

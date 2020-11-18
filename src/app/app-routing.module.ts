@@ -9,7 +9,7 @@ import { NewUserComponent } from './new-user/new-user.component';
 const routes: Routes = [
   {path: '', component: LoginScreenComponent},
   {path: 'home', component: HomeComponent}, //canActivate: [AuthGuard]},
-  {path: 'new', component: NewUserComponent} //canActivate: [AuthGuard]}
+  {path: 'newUser', component: NewUserComponent} //canActivate: [AuthGuard]}
 ];
 
 @NgModule({
