@@ -52,14 +52,23 @@
     
     <input type="text" class="form-control mt-2 otherT" disabled id="otherData" placeholder="other...">
 
-    <button class="btn btn-light mt-2" (click)="submitData()">Add to list</button>
+    <button class="btn btn-light mt-2" (click)="manAddData()">Add to list</button>
     <div class="alert alert-danger mt-4" id="credEr" *ngIf="isShown" role="alert">
       Please fill in all the fields    
   </div>
+
+  <div class="submitForm">
     
   </div>
     
+  </div>
+
+  
+    
   <div class="tableConHead mt-5">
+    <div class="alert alert-success mt-4" id="submitNo" *ngIf="showNo" role="alert">
+      Data submitted successfully    
+  </div>
     <button class="btn btn-primary thisBut" (click)="submitData()">Submit Data</button>
     <h2 class="text-center">Identified Data</h2>
   </div>
@@ -79,8 +88,9 @@
             <td>{{item.data}}</td>
             <td>{{item.category}}</td>
             <td class="custom-control custom-checkbox" >      
-              <label><input type="checkbox" id="chkInclude" val="sdsdf"></label>
-              <div class="sYes" id="dvYes">YES</div>
+              <label for="sel1">Include<select #mySelect class="form-control mt-2 manCat" id="sel1" (change)='onOptionSelected(mySelect.value)'>
+                <option class='box' *ngFor='let box of boxVals' [value]="box">{{box}}</option>
+              </select></label>
             </td>
           </tr>        
         </tbody>

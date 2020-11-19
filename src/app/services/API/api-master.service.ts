@@ -71,7 +71,7 @@ export class APIMasterService {
 
   createUser(tusername, temail, tpassword): Observable<any>{
 
-    return this.http.post(this.apiUrl + '/newUser', {username: tusername, email: temail, password: tpassword}, {observe: 'response', responseType: 'text'})
+    return this.http.post(this.apiUrl + '/newUser', {username: tusername, email: temail, password: tpassword}, {observe: 'response'})
   }
 
 

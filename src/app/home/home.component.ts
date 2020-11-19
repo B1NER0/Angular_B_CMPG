@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { APIMasterService } from '../services/API/api-master.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { MatPseudoCheckbox, MatPseudoCheckboxState } from '@angular/material/core';
 
 @Component({
   selector: 'app-home',
@@ -11,13 +12,17 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
 
   constructor(private apiReq: APIMasterService, private router: Router) { }
+  showNo: boolean;
 
   ngOnInit(): void {
     var theUser = localStorage.getItem('username');
     document.getElementById('theUser').innerHTML = theUser;
     this.isLoad = false;
+    
+    this.showNo = false;
   }
 
+  
   
   catValues = [
     "Person",
@@ -43,6 +48,7 @@ export class HomeComponent implements OnInit {
   }
  
   isShown :boolean;
+  isShownSubmit: boolean;
   manAddData(){
 
     var theVal = (<HTMLInputElement>document.getElementById('manData')).value;
@@ -135,13 +141,13 @@ export class HomeComponent implements OnInit {
     this.apiReq.checkIfAuth('newUser');
   }
 
-  
+  submitNo = document.getElementById('submitNo');
 
   submitData() {
 
-    this.manAddData()
+    this.showNo = false;
    
-   /* var test = <HTMLTableElement>(document.querySelector('#theTable'));
+    var test = <HTMLTableElement>(document.querySelector('#theTable'));
 
     var bla = test.tBodies[0].rows;
 
@@ -152,7 +158,7 @@ export class HomeComponent implements OnInit {
       arr.push(tds);
     })
     
-    this.startSorting(arr);*/
+    this.startSorting(arr);
   }
 
   startSorting(theArr){
@@ -166,13 +172,25 @@ export class HomeComponent implements OnInit {
         }
       });
 
-      this.apiReq.sendIdentifiedData(this.itemsToSend, '30303052').subscribe(res => {
-        console.log(res)
+      this.apiReq.sendIdentifiedData(this.itemsToSend, '30303052').subscribe(err  => {
+        
+        console.log(err)
+        
+      },
+      () => {
+        this.showNo = true;
+        console.log('here')
       })
   }
 
+  boxVals = ['YES', 'NO']
   ItemsArray= [];
   itemsToSend = [];
+
+  showOptions(event: HTMLInputElement) {
+    console.log('asdasdasd');
+
+  }
 
   toPop = [];
   public populateGrid(result){
@@ -281,8 +299,8 @@ export class HomeComponent implements OnInit {
 
   classified: any;
 
-  public startUpload(){
-
+  sendReq() {
+    
   }
 
   isLoad: boolean = false;
