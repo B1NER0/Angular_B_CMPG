@@ -28,7 +28,11 @@ export class LoginScreenComponent implements OnInit {
   isShown: boolean = false;
 
   login(){
-    var email = (<HTMLInputElement>document.getElementById('inputEmail')).value;
+
+    this.apiReq.getAllUsers().subscribe((res) => {
+      console.log(res);
+    });
+   /* var email = (<HTMLInputElement>document.getElementById('inputEmail')).value;
     var password = (<HTMLInputElement>document.getElementById('inputPassword')).value;
     
     
@@ -42,5 +46,6 @@ export class LoginScreenComponent implements OnInit {
   () => {
     this.isShown = true;
   })  
-  }
+  }*/
+}
 }

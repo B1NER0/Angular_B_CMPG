@@ -13,14 +13,12 @@ export class APIMasterService {
 
   constructor(private http: HttpClient, private rout: Router, private ref: ApplicationRef) { }
 
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl =  'http://hummingclassify.us-east-1.elasticbeanstalk.com'; //'http://localhost:8080';
   
   //private header; 
 
-  getAllUsers(){
-      this.http.get(this.apiUrl+'/users').subscribe((res) => {
-      console.log(res);
-    })
+  getAllUsers(): Observable<any>{
+      return this.http.get<any>(this.apiUrl+'/users');
   }
 
   login(theEmail, thePassword){
