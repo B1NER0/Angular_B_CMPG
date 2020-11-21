@@ -1,0 +1,32 @@
+<div class="viewHead container mt-5">
+
+    <label >Search with Client ID</label>
+    <div class="submitStuff">
+      <input type="text" class="form-control" id="clientID" placeholder="Client ID">
+    <button class="btn btn-primary thisBut mt-2" (click)="search()">Search</button>
+  </div>
+
+</div>
+
+<div class="tableConHead mt-5">
+    
+    <h2 class="text-center">Database Data</h2>
+  </div>
+
+    <div class="table-responsive container">
+      <table class="table table-bordered table-hover table-striped" id="theTable">
+        <thead>
+          <tr class="bg-dark text-white font-weight-light tableHEAD">
+            <th scope="col">#</th>
+            <th scope="col">Identified Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of clientArray" class="text-center">
+            <th>{{item.id}}</th>
+            <td>{{item.data}}</td>
+          </tr>        
+        </tbody>
+      </table>
+    </div>
+    

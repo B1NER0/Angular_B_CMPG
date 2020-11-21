@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './services/AuthGuard/auth.guard';
 import { NewUserComponent } from './new-user/new-user.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ViewDatabaseComponent } from './view-database/view-database.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginScreenComponent,
     HomeComponent,
-    NewUserComponent
+    NewUserComponent,
+    ViewDatabaseComponent
   ],
   imports: [
     BrowserModule,

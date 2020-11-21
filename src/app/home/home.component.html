@@ -5,10 +5,11 @@
   </div>
   
   <mat-toolbar class="top-toolbar">
-    <h1>Data Dashboard</h1>
-    <span class = "filler"></span>
-    <label id="theUser">user</label>    
+    <h1>Data Dashboard</h1>    
+    <label class="ml-5" id="theUser">user</label>
+    <span class = "filler"></span>    
     <button class="btn btn-success" (click)="goToNewUser()">Create user</button>
+    <button class="btn btn-success ml-3" (click)="viewDatabase()">View database</button>
     <button class="btn btn-secondary ml-3" (click)="logOut()">Logout</button>
   </mat-toolbar>
   
@@ -36,6 +37,8 @@
   
   <div class="container">
 
+    <div class="aboveBody">
+
     <div class="manContainer">
 
     <div class="manData ">
@@ -56,20 +59,29 @@
     <div class="alert alert-danger mt-4" id="credEr" *ngIf="isShown" role="alert">
       Please fill in all the fields    
   </div>
+  
+  </div>
 
   <div class="submitForm">
     
+    <label >Client ID</label>
+    <div class="submitStuff">
+      <input type="text" class="form-control" id="clientID" placeholder="Client ID">
+    <button class="btn btn-primary thisBut" (click)="submitData()">Submit Data</button>
+  </div>
+    <div class="alert alert-success mt-2" id="submitNo" *ngIf="showNo" role="alert">
+      Data submitted successfully    
   </div>
     
   </div>
+</div>
+    
+  
 
   
     
   <div class="tableConHead mt-5">
-    <div class="alert alert-success mt-4" id="submitNo" *ngIf="showNo" role="alert">
-      Data submitted successfully    
-  </div>
-    <button class="btn btn-primary thisBut" (click)="submitData()">Submit Data</button>
+    
     <h2 class="text-center">Identified Data</h2>
   </div>
     <div class="table-responsive">

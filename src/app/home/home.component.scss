@@ -101,10 +101,35 @@
      float: right;
  }
 
-
- .submitForm {
-     width: 30rem;
-     background-color: #c9cfd6;
-     margin-left: 10rem;
+ .aboveBody{
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
  }
+
+.submitForm {
+    background-color: #c9cfd6;  /*linear-gradient(0deg, rgba(23,111,161,1) 1%, rgba(45,161,253,1) 13%);*/
+    padding: 1.6rem;
+    border-radius: 1rem;
+    width: 30rem;
+    margin-left: 4rem;
+}
+
+.submitStuff{
+    display: flex;
+    flex-direction: row;
+}
+
+.submitForm button {
+    margin-left: 2rem;
+
+}
+
+#clientID{
+    width:55%
+}
+
+.submitForm label {
+    font-size: 1.3rem;
+}
  

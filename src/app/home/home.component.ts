@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     var theUser = localStorage.getItem('username');
-    document.getElementById('theUser').innerHTML = theUser;
+    document.getElementById('theUser').innerHTML = 'Logged in as : ' + theUser;
     this.isLoad = false;
     
     this.showNo = false;
@@ -84,8 +84,10 @@ export class HomeComponent implements OnInit {
   
       this.ItemsArray = this.toPop;
     }
+  }
 
-    
+  viewDatabase() {
+    this.apiReq.checkIfAuth('view')
   }
 
   logOut(){
