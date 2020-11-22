@@ -14,7 +14,7 @@ export class APIMasterService {
 
   constructor(private http: HttpClient, private rout: Router, private ref: ApplicationRef) { }
 
-  private apiUrl =  'https://3iksgn0bf3.execute-api.us-east-1.amazonaws.com/Prod/'//'https://hummingclassify.us-east-1.elasticbeanstalk.com';
+  private apiUrl =  'http://hummingclassify.us-east-1.elasticbeanstalk.com'//'https://hummingclassify.us-east-1.elasticbeanstalk.com';
   
   //private header; 
 
