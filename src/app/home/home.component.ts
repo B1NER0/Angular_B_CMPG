@@ -321,9 +321,9 @@ export class HomeComponent implements OnInit {
     this.isLoad = true;
     this.ItemsArray = [];
     try{
-        this.apiReq.getAnalysedData().subscribe(result => {
-        this.classified = result;
-        this.populateGrid(result);
+        this.apiReq.getAnalysedData().subscribe(res => {
+        this.classified = res;
+        this.populateGrid(res);
         return true;
         
         });
