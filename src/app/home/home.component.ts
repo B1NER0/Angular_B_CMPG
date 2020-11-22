@@ -109,6 +109,7 @@ export class HomeComponent implements OnInit {
   private selectedFile: File;
   theFilename = "" ;
   onFileSelect(event) {
+    
     this.selectedFile = event.target.files[0];
     console.log(this.selectedFile.name);
     
@@ -141,13 +142,24 @@ export class HomeComponent implements OnInit {
     fileImage.src = extSource;
     this.theFilename = mes;
 
+    const test = <HTMLButtonElement>document.getElementById('btnAnalyse');
+          test.disabled = true;
+
     if(flag){     
-      //upload file
-      this.apiReq.uploadFile(event.target.files[0]);
-      this.ItemsArray = [];
-      this.analyzeData();
+      //upload file      
+      this.apiReq.uploadFile(event.target.files[0]).subscribe((val) => {
+        if(val){
+          this.ItemsArray = [];          
+          test.disabled = false;         
+        }
+      });
+            
 
     }
+  }
+
+  executeAnalyse() {
+    this.analyzeData();
   }
 
   goToNewUser(){
@@ -304,6 +316,10 @@ export class HomeComponent implements OnInit {
     console.log('POP')
     console.log(this.toPop)
 
+
+    this.apiReq.rebootServer().subscribe(res => {
+      console.log('Server Restarted');
+    })
   }
 
   classified: any;
@@ -332,6 +348,7 @@ export class HomeComponent implements OnInit {
       console.log(err)
       return false;
     }
+    
 
   }
 

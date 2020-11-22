@@ -14,7 +14,7 @@ export class APIMasterService {
 
   constructor(private http: HttpClient, private rout: Router, private ref: ApplicationRef) { }
 
-  private apiUrl =  'http://hummingclassify.us-east-1.elasticbeanstalk.com'//'https://hummingclassify.us-east-1.elasticbeanstalk.com';
+  private apiUrl =  'http://54.162.93.32:8000'//'https://hummingclassify.us-east-1.elasticbeanstalk.com';
   
   //private header; 
 
@@ -80,16 +80,17 @@ export class APIMasterService {
 
   fileToUpload : any;
 
-  uploadFile(files: FileList){
+  uploadFile(files: FileList): Observable<any>{
     this.fileToUpload = files;
     let fileData = new FormData();
-
+    console.log(files)
     fileData.append(`file`, this.fileToUpload, this.fileToUpload.name);
+    return this.http.post<any>(this.apiUrl + '/upload', fileData)
+    
+  }
 
-    this.http.post<any>(this.apiUrl + '/upload', fileData).subscribe((val) => {
-      console.log(val);
-    });
-    return false;
+  rebootServer(): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/system/reboot');
   }
   
   getClientData(clientID : string): Observable<any>{
