@@ -133,3 +133,18 @@
     font-size: 1.3rem;
 }
  
+
+input[type="checkbox"]:checked + label {
+    display: none;
+}
+
+.check-with-label:checked + .label-for-check {
+    font-weight: bold;
+    
+  }
+
+  .check-with-label:not(:checked) + .label-for-check {
+    font-weight: bold;
+    display: block;
+  }
+

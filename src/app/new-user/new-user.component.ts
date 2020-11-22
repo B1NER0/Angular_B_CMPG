@@ -38,16 +38,17 @@ export class NewUserComponent implements OnInit {
     if(email == '' || password === '' || cpassword === '' || username === '' || password !== cpassword){
       this.isShown = true;
     }else{
-      this.apiReg.createUser(username, email, password).subscribe(res => {
-        if(res.status === 200){
+      this.apiReg.createUser(username, email, password).subscribe(err => {
+        console.log(err)
+        } , 
+        () => {
           this.isSucc = true;
           this.clearVal();
+          })
         }
-      })
+        
     }
 
   }
-  test(){
-    this.router.navigate(['/home']);
-  }
-}
+  
+

@@ -4,6 +4,9 @@
     <div class="submitStuff">
       <input type="text" class="form-control" id="clientID" placeholder="Client ID">
     <button class="btn btn-primary thisBut mt-2" (click)="search()">Search</button>
+    <div class="alert alert-warning mt-2" id="noClient" *ngIf="noClient" role="alert">
+      Please enter a client ID   
+    </div>
   </div>
 
 </div>
@@ -17,15 +20,14 @@
       <table class="table table-bordered table-hover table-striped" id="theTable">
         <thead>
           <tr class="bg-dark text-white font-weight-light tableHEAD">
-            <th scope="col">#</th>
             <th scope="col">Identified Data</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of clientArray" class="text-center">
-            <th>{{item.id}}</th>
-            <td>{{item.data}}</td>
-          </tr>        
+            <td>{{item}}</td>
+          </tr>   
+             
         </tbody>
       </table>
     </div>

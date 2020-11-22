@@ -71,7 +71,11 @@
   </div>
     <div class="alert alert-success mt-2" id="submitNo" *ngIf="showNo" role="alert">
       Data submitted successfully    
-  </div>
+    </div>
+
+    <div class="alert alert-warning mt-2" id="noClient" *ngIf="noClient" role="alert">
+      Please enter a client ID   
+    </div>
     
   </div>
 </div>
@@ -91,25 +95,30 @@
             <th scope="col">#</th>
             <th scope="col">Identified Data</th>
             <th scope="col">Category</th>
-            <th scope="col">Action</th>
+            <th scope="col">Include?</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of ItemsArray" class="text-center">
             <th>{{item.id}}</th>
             <td>{{item.data}}</td>
-            <td>{{item.category}}</td>
+            <td>{{item.category}}</td>            
             <td class="custom-control custom-checkbox" >      
-              <label for="sel1">Include<select #mySelect class="form-control mt-2 manCat" id="sel1" (change)='onOptionSelected(mySelect.value)'>
+             <label for="sel1">Include<select #mySelect class="form-control mt-2 manCat" id="sel1" (change)='onThis(item.id)'>
                 <option class='box' *ngFor='let box of boxVals' [value]="box">{{box}}</option>
               </select></label>
-            </td>
+              
+              <!--
+              <div>
+                <input type="checkbox" class="check-with-label" id="idinput" checked/>
+                <label class="label-for-acheck" for="idinput" >NO</label>
+              </div> -->
+                        
+          </td> 
           </tr>        
         </tbody>
       </table>
     </div>
     
   </div>
-
   
-   

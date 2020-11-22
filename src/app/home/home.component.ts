@@ -35,6 +35,16 @@ export class HomeComponent implements OnInit {
     "Other (specify)"
   ]
 
+  onThis(val: any){
+    const curVal = this.toPop[val-1].status;
+
+    if(curVal === 'YES'){
+      this.toPop[val-1].status = 'NO'
+    }else{
+      this.toPop[val-1].status = 'YES'
+    }
+  }
+
   onOptionSelected(value:string){
     var el = <HTMLInputElement> document.getElementById('otherData');
     el.value = '';
@@ -84,6 +94,8 @@ export class HomeComponent implements OnInit {
   
       this.ItemsArray = this.toPop;
     }
+
+    
   }
 
   viewDatabase() {
@@ -119,7 +131,7 @@ export class HomeComponent implements OnInit {
     }else if(ext === 'csv') {
       extSource = 'assets\\images\\csvIcon.png';
       flag = true;
-    }else if(ext === 'xlsm') {
+    }else if(ext === 'xlsm' || ext === 'xlsx') {
       extSource = 'assets\\images\\xlsxIcon.png';
       flag = true;
     }else{
@@ -135,7 +147,9 @@ export class HomeComponent implements OnInit {
     if(flag){     
       //upload file
       this.apiReq.uploadFile(event.target.files[0]);
+      this.ItemsArray = [];
       this.analyzeData();
+
     }
   }
 
@@ -145,54 +159,47 @@ export class HomeComponent implements OnInit {
 
   submitNo = document.getElementById('submitNo');
 
+  noClient: boolean;
   submitData() {
-
+    this.noClient = false;
     this.showNo = false;
-   
-    var test = <HTMLTableElement>(document.querySelector('#theTable'));
 
-    var bla = test.tBodies[0].rows;
-
-    var arr = [];
-
-    Array.from(bla).forEach((row, idx) => {
-      const tds = Array.from(row.cells).map(td => td.textContent);     
-      arr.push(tds);
-    })
     
-    this.startSorting(arr);
-  }
-
-  startSorting(theArr){
-      console.log(theArr)
-
-      theArr.forEach(element => {
-        if(element[3] === 'YES'){
-          if(!this.itemsToSend.includes(element[2])){
-            this.itemsToSend.push(element[2]);
+    var clientID = <HTMLInputElement>document.getElementById('clientID')
+    
+    if(clientID.value){
+      this.toPop.forEach(element => {
+        if(element.status === 'YES'){
+          if(!this.itemsToSend.includes(element.category)){
+            this.itemsToSend.push(element.category);
           }          
         }
       });
-
-      this.apiReq.sendIdentifiedData(this.itemsToSend, '30303052').subscribe(err  => {
+  
+      this.apiReq.sendIdentifiedData(this.itemsToSend, clientID.value).subscribe(err  => {
         
-        console.log(err)
+      console.log(err)
         
       },
       () => {
         this.showNo = true;
-        console.log('here')
       })
+    }else{
+      this.noClient = true;
+    }
+
+    
+
+    
   }
+
+  
 
   boxVals = ['YES', 'NO']
   ItemsArray= [];
   itemsToSend = [];
 
-  showOptions(event: HTMLInputElement) {
-    console.log('asdasdasd');
-
-  }
+ 
 
   toPop = [];
   public populateGrid(result){
@@ -201,6 +208,8 @@ export class HomeComponent implements OnInit {
     this.ItemsArray= [[
       {},]   
     ];
+
+    this.toPop = [];
 
     let r = result.map(a => a.Person);
 
@@ -295,7 +304,8 @@ export class HomeComponent implements OnInit {
     
     this.ItemsArray = this.toPop;
     this.isLoad = false;
-    //console.log(this.toPop)
+    console.log('POP')
+    console.log(this.toPop)
 
   }
 
@@ -313,7 +323,6 @@ export class HomeComponent implements OnInit {
     try{
         this.apiReq.getAnalysedData().subscribe(result => {
         this.classified = result;
-        //console.log(result)//this.classified[0]['Person'][3]
         this.populateGrid(result);
         return true;
         

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router } from '@angular/router'
+import { APIMasterService } from '../services/API/api-master.service';
 
 @Component({
   selector: 'app-view-database',
@@ -8,14 +9,27 @@ import {Router } from '@angular/router'
 })
 export class ViewDatabaseComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiReq: APIMasterService, private router: Router) { }
 
   clientArray = []
   ngOnInit(): void {
   }
 
-  search() {
+  noClient : boolean;
 
+  search() {
+    var clientID = <HTMLInputElement>document.getElementById('clientID');
+
+    this.noClient = false;
+    if(clientID.value){
+      this.apiReq.getClientData(clientID.value).subscribe(res => {
+        console.log(res);
+        this.clientArray = res;
+      })
+    }else{
+      this.noClient = true;
+    }
+    
   }
 
 }

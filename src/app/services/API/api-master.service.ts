@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { stringify } from 'querystring';
+import { AnonymousSubject } from 'rxjs/internal/Subject';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class APIMasterService {
 
   constructor(private http: HttpClient, private rout: Router, private ref: ApplicationRef) { }
 
-  private apiUrl =  'http://hummingclassify.us-east-1.elasticbeanstalk.com'// 'http://hummingclassify.us-east-1.elasticbeanstalk.com';
+  private apiUrl =  'http://localhost:8080'// 'http://hummingclassify.us-east-1.elasticbeanstalk.com';
   
   //private header; 
 
@@ -39,6 +40,8 @@ export class APIMasterService {
   }
 
   sendIdentifiedData(iData, userID): Observable<any>{
+    console.log(iData);
+    console.log(userID)
     return this.http.post<any>(this.apiUrl + '/sendData', {data: iData, uID: userID})
     
   }
@@ -69,7 +72,7 @@ export class APIMasterService {
 
   createUser(tusername, temail, tpassword): Observable<any>{
 
-    return this.http.post(this.apiUrl + '/newUser', {username: tusername, email: temail, password: tpassword}, {observe: 'response'})
+    return this.http.post<any>(this.apiUrl + '/newUser', {username: tusername, email: temail, password: tpassword}, {observe: 'response'})
   }
 
 
@@ -89,7 +92,9 @@ export class APIMasterService {
     return false;
   }
   
-  
+  getClientData(clientID : string): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/getClientData/' + clientID);
+  }
 }
 
 
