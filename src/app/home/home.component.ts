@@ -326,6 +326,10 @@ export class HomeComponent implements OnInit {
         this.populateGrid(res);
         return true;
         
+        },
+        err => {
+          console.log('HIER');
+          console.log(err);
         });
     }catch(err){
       console.log(err)

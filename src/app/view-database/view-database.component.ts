@@ -25,10 +25,6 @@ export class ViewDatabaseComponent implements OnInit {
       this.apiReq.getClientData(clientID.value).subscribe(res => {
         console.log(res);
         this.clientArray = res;
-      },
-      err => {
-        console.log("HIERSO")
-        console.log(err);
       })
     }else{
       this.noClient = true;
