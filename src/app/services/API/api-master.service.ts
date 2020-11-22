@@ -14,7 +14,7 @@ export class APIMasterService {
 
   constructor(private http: HttpClient, private rout: Router, private ref: ApplicationRef) { }
 
-  private apiUrl =  'http://localhost:8080'// 'http://hummingclassify.us-east-1.elasticbeanstalk.com';
+  private apiUrl =  'http://hummingclassify.us-east-1.elasticbeanstalk.com';
   
   //private header; 
 
