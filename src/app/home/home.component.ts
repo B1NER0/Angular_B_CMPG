@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIMasterService } from '../services/API/api-master.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { MatPseudoCheckbox, MatPseudoCheckboxState } from '@angular/material/core';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
